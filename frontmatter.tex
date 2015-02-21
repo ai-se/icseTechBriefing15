@@ -67,6 +67,7 @@
 \hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage{times}
 \usepackage{url}
+\usepackage{graphicx}
 
 
 \begin{document}
@@ -106,15 +107,17 @@
 % 
 \author{% 
 Tim Menzies\\
-CS, NcState , USA\\
+Computer Science, \\
+North Carolina State University, USA\\
 tim.menzies@gmail.com
 \and
  Leandro Minku\\
-CS,  U.  Birmingham, UK\\
+Comptuer Science\\
+University of Birmingham, UK\\
 l.l.minku@cs.bham.ac.uk
 \and
 Fayola Peters\\
-Lero, University of Limmerick, Ireland\\
+Lero, University \\of Limmerick, Ireland\\
 fayolapeters@gmail.com
 }
 
@@ -134,7 +137,7 @@ fayolapeters@gmail.com
 
 \begin{abstract}
 %\boldmath
-Using the tools of quantitative data science, software engineers that can predict useful information on new projects based on past projects.  This tutorial reflects on the state-of-the-art in quantitative  reasoning in this important field. This  tutorial discusses the following:   (a) when local data is scarce, we show how to adapt data from other organizations to local problems; (b) when work-ing with data of dubious quality, we show how to prune spurious information; (c) when data or models seem too complex, we show how to simplify   data mining results; (d) when the world changes, and old models need to be updated, we show how to handle those updates; (e) When the effect is too complex for one model, we show to how reason over ensembles.
+Using the tools of quantitative data science, software engineers that can predict useful information on new projects based on past projects.  This tutorial reflects on the state-of-the-art in quantitative  reasoning in this important field. This  tutorial discusses the following:   (a) when local data is scarce, we show how to adapt data from other organizations to local problems; (b) when working with data of dubious quality, we show how to prune spurious information; (c) when data or models seem too complex, we show how to simplify   data mining results; (d) when the world changes, and old models need to be updated, we show how to handle those updates; (e) when the effect is too complex for one model, we show to how reason over ensembles.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -159,11 +162,15 @@ Using the tools of quantitative data science, software engineers that can predic
 \IEEEpeerreviewmaketitle
  
  \section{Overview}
- In the age of big data, data science for software engineering is a very active area.  In the 21st century, it is now impossible to manually browse all the available software project data. The PROMISE repository of SE data has grown to 100+ projects and this is just one of over a dozen open-source repositories that are readily available to researchers. There are many sources of information; e.g. example, as of Oct’12, Mozilla Firefox had 800K reports on projects; and Source-forge.net Github host 324K and 11.2M projects.
+ In the age of big data, data science for software engineering is a very active area.  In the 21st century, it is now impossible to manually browse all the available software project data. The PROMISE repository of SE data has grown to 100+ projects and this is just one of over a dozen open-source repositories that are readily available to researchers. There are many sources of information; e.g. example, as of October 2012, Mozilla Firefox had 800K reports on projects; and Source-forge.net Github host 324K and 11.2M projects.
 
 
 There are many successful results in this field (see Figure 1).
-       These results have inspired much interest in this kind of data analysis in the industrial and research communities. A search through Amazon.com reveals dozens of new data mining texts, just in the last 2 years.  Yet most of those texts are overly concerned with the specific details of particular data miners. Industrial practitioners should be able to use a range of approaches as decision support tools which allow prediction of useful information on new soft-ware projects based on completed projects. 
+       These results have inspired much interest in this kind of data analysis in the industrial and research communities. A search through Amazon.com reveals dozens of new data mining texts, just in the last 2 years.  Yet most of those texts are overly concerned with the specific details of particular data miners. Industrial practitioners should be able to use a range of approaches as decision support tools which allow prediction of useful information on new software projects based on completed projects. 
+       
+This tutorial is our reflection  and summary
+on the state-of-the-art in quantitative reasoning in this important field. For further information, see our
+recent book on this topic (see Figure~2).
 
 \section{Details}   
        
@@ -171,32 +178,44 @@ There are many successful results in this field (see Figure 1).
  
 {\em Pre-requisites:} This tutorial makes minimal use of maths of advanced algorithms and would be understandable by  developers and technical managers. 
  
-{\em Overall goal of the tutorial:} Better data mining by better skilled software engineers.
 
-{\em Why the topic would be of interest to a broad section of the software engineering community:} 
 
-\section{About the Presentors}
-
-Tim Menzies (Ph.D., UNSW, 1995) is a full Professor in CS at North Carolina State University where he teaches software engineering and automated software engineering. His research relates to synergies between human and artificial intelligence, with particular application to data mining for software engineering.
-He is the author of over 230 referred publications; and is one of the 100 most cited authors in software engineering out of over 80,000 researchers (http://goo.gl/SSPX3J). In his career, he has been a lead researcher on projects for NSF, NIJ, DoD, NASA, USDA, as well as joint research work with private companies.
-Prof. Menzies is the co-founder of the PROMISE conference series devoted to reproducible experiments in software engineering (http://openscience.us/repo). He is an associate editor of IEEE Transactions on Software Engineering, Empirical Software Engineering and the Automated Software Engineering Journal. In 2016, he will serve as co-general chair for ICSME'16.
-
-\begin{figure}[!b]
+\begin{figure}[!t]
 \begin{tabular}{|p{.95\linewidth}|}\hline
-\begin{itemize}
-\item After mining data from Microsoft products, Christian Bird found that it was  possible to build high-quality software using teams across the planet, just as long as the management is structured around code functionality (who works on what) and not merely on geography (who sits where)~\cite{bird09a}.
-\item
-Another result from AT\&T~\cite{ostrand04} (which has been repeated several times~\cite{me10a,tosun10}) is that it is possible to use static code measures to guide inspection teams to the small parts of the code containing most defects; e.g. inspection teams can find 80\% to 88\% of the defects after inspecting 20\% to 25\% of the code. 
-\item
+  Christian Bird found that it was  possible to build high-quality software using teams across the planet, just as long as the management is structured around code functionality (who works on what) and not merely on geography (who sits where)~\cite{bird09a}.
+
+Another result from AT\&T~\cite{ostrand04} (which has been repeated several times~\cite{me10a,tosun10}) is that static code measures can be used to guide inspection teams to the small parts of the code containing most defects; e.g. inspection teams can find 80\% to 88\% of the defects after inspecting 20\% to 25\% of the code. 
+ 
 For more examples, see the long list of applications discussed in the July and September 2013 issues of IEEE Software special issues on “Software Analytics”, edited by Menzies \& Zimemrmann.
-\end{itemize}\\\hline
+\\\hline
 \end{tabular}
 \caption{Successful results, analyzing software data.}
 \end{figure}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.65in]{book.jpg}
+\caption{Sharing Data and Models,
+available from Amazon.com.}
+\label{fig:book}
+\end{figure}
+ 
+{\em Overall goal of the tutorial:} Better data mining by better skilled software engineers.
 
-Leandro L. Minku is a Research Fellow at the Centre of Excellence for Research in Computational Intelligence and Applications (CERCIA), School of Computer Science, the University of Birmingham (UK). He received the PhD degree in Computer Science from the University of Birmingham (UK) in 2011, and was an intern at Google Zurich for six months in 2009/2010. He was the recipient of the Overseas Research Students Award (ORSAS) from the British government and several scholarships from the Brazilian Council for Scientific and Technological Development (CNPq). His research focuses on software prediction models, online/incremental machine learning for changing environments, and ensembles of learning machines. He has published in internationally renowned journals such as ACM Transactions on Software Engineering and Methodology, IEEE Transactions on Knowledge and Data Engineering, and Neural Networks.
 
-Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Research Center at the University of Limerick in Ireland. She received the PhD in Computer Science from West Virginia University in 2014. Her research focuses on handling privacy issues related to supporting privacy preserving data sharing for data owners as well as software users. She has published at top software engineering venues like ICSE, IEEE TSE and ESEM. She has also been a curator for the PROMISE repository since 2011.
+{\em Why the topic would be of interest to a broad section of the software engineering community:} 
+
+  We show how to acquire knowledge from software engineering data, so that software engineers can make informed decisions.
+\section{About the Presenters}
+
+Tim Menzies (Ph.D., UNSW, 1995) is a full Professor in Computer Science at North Carolina State University where he teaches software engineering and automated software engineering. His research relates to synergies between human and artificial intelligence, with particular application to data mining for software engineering.
+He is the author of over 230 referred publications; and is one of the 100 most cited authors in software engineering out of over 80,000 researchers (http://goo.gl/SSPX3J). In his career, he has been a lead researcher on projects for NSF, NIJ, DoD, NASA, USDA, as well as joint research work with private companies.
+Prof. Menzies is the co-founder of the PROMISE conference series devoted to reproducible experiments in software engineering (http://openscience.us/repo). He is an associate editor of IEEE Transactions on Software Engineering, Empirical Software Engineering and the Automated Software Engineering Journal. In 2016, he will serve as co-general chair for ICSME'16.
+
+
+Leandro L. Minku is a Research Fellow II at the Centre of Excellence for Research in Computational Intelligence and Applications (CERCIA), School of Computer Science, the University of Birmingham (UK). He received the PhD degree in Computer Science from the University of Birmingham (UK) in 2011, and was an intern at Google Zurich for six months in 2009/2010. He was the recipient of the Overseas Research Students Award (ORSAS) from the British government and several scholarships from the Brazilian Council for Scientific and Technological Development (CNPq). His research focuses on software prediction models, on-line/incremental machine learning for changing environments, and ensembles of learning machines. He has published in internationally renowned journals such as ACM Transactions on Software Engineering and Methodology, IEEE Transactions on Knowledge and Data Engineering.
+
+Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Research Center at the University of Limerick in Ireland. She received the PhD in Computer Science from West Virginia University in 2014. Her research focuses on handling privacy issues related to supporting privacy preserving data sharing for data owners 
+(as well as software users). She has published at top software engineering venues like ICSE, IEEE TSE and ESEM. She has also been a curator for the PROMISE repository since 2011.
 
 
 
@@ -209,7 +228,7 @@ Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Resear
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
 % references section
-
+\newpage
 % can use a bibliography generated by BibTeX as a .bbl file
 % BibTeX documentation can be easily obtained at:
 % http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
