@@ -63,7 +63,7 @@
 % draft mode.
 %
 \documentclass[conference]{IEEEtran}
- 
+ \usepackage{balance}
 \hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage{times}
 \usepackage{url}
@@ -131,7 +131,7 @@ fayolapeters@gmail.com
 
 
 % make the title area
- \IEEEspecialpapernotice{(ICSE Technical Briefing)} 
+% \IEEEspecialpapernotice{(ICSE Technical Briefing)} 
 \maketitle
 
 
@@ -161,16 +161,29 @@ Using the tools of quantitative data science, software engineers that can predic
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
  
+ 
+
+\begin{figure}[!b]
+\begin{tabular}{|p{.95\linewidth}|}\hline
+  Christian Bird found that  high-quality software can be build using teams across the planet, if management is structured around code functionality (who works on what) and not  on geography (who sits where)~\cite{bird09a}.
+
+Another result from AT\&T~\cite{ostrand04} (repeated several times~\cite{me10a,tosun10}) is that static code measures can be used to guide inspection teams to the small parts of the code containing most defects; e.g. inspection teams can find 80\% to 88\% of the defects after inspecting 20\% to 25\% of the code. 
+ 
+For more examples, see the long list of applications discussed in the July and September 2013 issues of IEEE Software special issues on “Software Analytics”, edited by Menzies \& Zimemrmann.
+\\\hline
+\end{tabular}
+\caption{Successful results, analyzing software data.}
+\end{figure}
  \section{Overview}
  In the age of big data, data science for software engineering is a very active area.  In the 21st century, it is now impossible to manually browse all the available software project data. The PROMISE repository of SE data has grown to 100+ projects and this is just one of over a dozen open-source repositories that are readily available to researchers. There are many sources of information; e.g. example, as of October 2012, Mozilla Firefox had 800K reports on projects; and Source-forge.net Github host 324K and 11.2M projects.
 
 
-There are many successful results in this field (see Figure 1).
+There are many successful results in this field (see Figure~1).
        These results have inspired much interest in this kind of data analysis in the industrial and research communities. A search through Amazon.com reveals dozens of new data mining texts, just in the last 2 years.  Yet most of those texts are overly concerned with the specific details of particular data miners. Industrial practitioners should be able to use a range of approaches as decision support tools which allow prediction of useful information on new software projects based on completed projects. 
        
-This tutorial is our reflection  and summary
-on the state-of-the-art in quantitative reasoning in this important field. For further information, see our
-recent book on this topic (see Figure~2).
+This tutorial is a reflection  and summary
+on the state-of-the-art in quantitative methods in this  field. For further information, see our
+recent book   (see Figure~2).
 
 \section{Details}   
        
@@ -179,19 +192,7 @@ recent book on this topic (see Figure~2).
 {\em Pre-requisites:} This tutorial makes minimal use of maths of advanced algorithms and would be understandable by  developers and technical managers. 
  
 
-
-\begin{figure}[!t]
-\begin{tabular}{|p{.95\linewidth}|}\hline
-  Christian Bird found that it was  possible to build high-quality software using teams across the planet, just as long as the management is structured around code functionality (who works on what) and not merely on geography (who sits where)~\cite{bird09a}.
-
-Another result from AT\&T~\cite{ostrand04} (which has been repeated several times~\cite{me10a,tosun10}) is that static code measures can be used to guide inspection teams to the small parts of the code containing most defects; e.g. inspection teams can find 80\% to 88\% of the defects after inspecting 20\% to 25\% of the code. 
- 
-For more examples, see the long list of applications discussed in the July and September 2013 issues of IEEE Software special issues on “Software Analytics”, edited by Menzies \& Zimemrmann.
-\\\hline
-\end{tabular}
-\caption{Successful results, analyzing software data.}
-\end{figure}
-\begin{figure}[!t]
+\begin{figure}[!b]
 \centering
 \includegraphics[width=2.65in]{book.jpg}
 \caption{Sharing Data and Models,
@@ -218,6 +219,7 @@ Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Resear
 (as well as software users). She has published at top software engineering venues like ICSE, IEEE TSE and ESEM. She has also been a curator for the PROMISE repository since 2011.
 
 
+ \balance
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
@@ -227,8 +229,7 @@ Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Resear
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
-\newpage
+% references section 
 % can use a bibliography generated by BibTeX as a .bbl file
 % BibTeX documentation can be easily obtained at:
 % http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
@@ -241,7 +242,6 @@ Fayola Peters is a Postdoctoral Researcher with Lero - The Irish Software Resear
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
- 
 
 
 
